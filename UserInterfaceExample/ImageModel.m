@@ -8,11 +8,13 @@
 
 #import "ImageModel.h"
 
+
+
 @implementation ImageModel
 
-@property (strong, nonatomic) NSArray* imageNames;
 
 @synthesize imageNames = _imageNames;
+@synthesize imageNamesToImage = _imageNamesToImage;
 
 +(ImageModel*)sharedInstance{
     static ImageModel* _sharedInstance = nil;
@@ -25,39 +27,57 @@
 }
 
 -(NSArray*) imageNames{
-    if(!_imageNames)
-        _imageNames = @[@"Bill",@"Eric",@"Jeff"];
-    
+    if(!_imageNames){
+        _imageNames = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
+       
+    }
     return _imageNames;
 }
 
+-(NSMutableDictionary*) imageNamesToImage{
+    NSArray* imageNameList = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
+    if(! _imageNamesToImage){
+        for(int a =0; a<imageNameList.count; a =a+1){
+            NSString* name = (NSString*)imageNameList[a];
+            UIImage* image = nil;
+            image = [UIImage imageNamed:name];
+            _imageNamesToImage[name] = image;
+        }
+    }
+    return _imageNamesToImage;
+}
 
 -(UIImage*)getImageWithName:(NSString*)name{
     UIImage* image = nil;
     
-    image = [UIImage imageNamed:name];
+    image = _imageNamesToImage[name];
+    //old code
+    //image = [UIImage imageNamed:name];
     
     return image;
 }
 
 -(UIImage*)getImageWithIndex:(NSInteger)index{
     UIImage* image = nil;
-    
-    image = (UIImage*)imageNames[index];
+    NSString* name =@"";
+    name = (NSString*)_imageNames[index];
+    image = _imageNamesToImage[name];
+    //old code
+    //image = (UIImage*)_imageNames[index];
 
     return image;
 }
 
--(NSInteger)numberOfImages:{
-    return imageNames.count;
+-(NSInteger)numberOfImages{
+    return _imageNames.count;
 }
 
--(NSString*)getImageNameForIndex(NSInteger)index{
-    UIImage* image = nil;
+-(NSString*)getImageNameForIndex:(NSInteger)index{
     
-    image = (UIImage*)imageNames[index];
-    let name = image.name;
+    NSString* name = (NSString*) _imageNames[index];
+    
     return name;
+    
 }
 
 @end
