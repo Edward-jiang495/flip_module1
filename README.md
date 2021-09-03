@@ -12,7 +12,7 @@ This should happen the first time another class asks for an image. Note: you sho
 [1 points] Modify or create class methods that will allow other classes to access the image names and the images by sending in a string or integer parameter ( i.e., the input to the method is the name of the image in the dictionary). Also add a method that returns the total number of images in the model. You should have something like the following for public methods. (Edward finishes, pending testing)
 
 
-Make all classes adapt to use the dictionary not array (2pts)
+[2 points] Make all classes adapt to use the dictionary not array
 Update the ViewController to use the new ImageModel class (if needed).
 
 Update the TableViewController to use the new model (if needed).
@@ -23,7 +23,7 @@ Once all classes use the model properly (and everything compiles), test each vie
 
 [0.5 points] Add three additional images (six total) to the image.assets and load them using the ImageModel class (along with the other images). Note: Leave the image names hardcoded (Edward finishes, pending testing)
 
-Review Questions(edward currently doing)
+[0.5 points] Review Questions(edward currently doing)
 Is this new implementation of the image model more efficient? Why or Why not?
 
 Is this implementation of the model more scalable? Why or Why not?
