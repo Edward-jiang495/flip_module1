@@ -9,6 +9,9 @@
 #import "ImageModel.h"
 
 @implementation ImageModel
+
+@property (strong, nonatomic) NSArray* imageNames;
+
 @synthesize imageNames = _imageNames;
 
 +(ImageModel*)sharedInstance{
@@ -35,6 +38,26 @@
     image = [UIImage imageNamed:name];
     
     return image;
+}
+
+-(UIImage*)getImageWithIndex:(NSInteger)index{
+    UIImage* image = nil;
+    
+    image = (UIImage*)imageNames[index];
+
+    return image;
+}
+
+-(NSInteger)numberOfImages:{
+    return imageNames.count;
+}
+
+-(NSString*)getImageNameForIndex(NSInteger)index{
+    UIImage* image = nil;
+    
+    image = (UIImage*)imageNames[index];
+    let name = image.name;
+    return name;
 }
 
 @end
