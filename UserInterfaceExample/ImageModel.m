@@ -17,6 +17,9 @@
 
 @implementation ImageModel
 
+//@synthesize imageNames = _imageNames;
+//@synthesize imageNamesToImage = _imageNamesToImage;
+
 +(ImageModel*)sharedInstance{
     static ImageModel* _sharedInstance = nil;
     static dispatch_once_t predicate;
@@ -29,32 +32,32 @@
 }
 
 -(NSArray*) imageNames{
-    if(!_imageNames){
-        _imageNames = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
+    if(!self.imageNames){
+        self.imageNames = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
     }
-    return _imageNames;
+    return self.imageNames;
 }
 
 -(NSMutableDictionary*) imageNamesToImage{
-    if(!_imageNamesToImage){
+    if(!self.imageNamesToImage){
         NSArray* imageNameList = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
-        
+        self.imageNamesToImage = [NSMutableDictionary dictionary];
         for(int a=0; a<imageNameList.count; a =a+1){
             NSString* name = (NSString*)imageNameList[a];
             UIImage* image = nil;
             image = [UIImage imageNamed:name];
             NSLog(@"%@", name);
-            _imageNamesToImage[name] = image;
+            [self.imageNamesToImage setObject:image forKey:name];
         }
     }
     
-    return _imageNamesToImage;
+    return self.imageNamesToImage;
 }
 
 -(UIImage*)getImageWithName:(NSString*)name{
     UIImage* image = nil;
     
-    image = self.imageNamesToImage[name];
+    image = [self.imageNamesToImage objectForKey: name];
     //old code
     //image = [UIImage imageNamed:name];
     
@@ -65,7 +68,7 @@
     UIImage* image = nil;
     NSString* name =@"";
     name = (NSString*)self.imageNames[index];
-    image = self.imageNamesToImage[name];
+    image = [self.imageNamesToImage objectForKey: name];
     
     return image;
 }
