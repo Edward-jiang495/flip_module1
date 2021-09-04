@@ -23,9 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(ImageModel*)sharedInstance;
 
-@property (strong, nonatomic) NSArray* imageNames;
-@property (strong, nonatomic) NSMutableDictionary* imageNamesToImage;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,13 +8,14 @@
 
 #import "ImageModel.h"
 
+@interface ImageModel ()
 
+@property (strong, nonatomic) NSArray* imageNames;
+@property (strong, nonatomic) NSMutableDictionary* imageNamesToImage;
+
+@end
 
 @implementation ImageModel
-
-
-@synthesize imageNames = _imageNames;
-@synthesize imageNamesToImage = _imageNamesToImage;
 
 +(ImageModel*)sharedInstance{
     static ImageModel* _sharedInstance = nil;
@@ -23,34 +24,37 @@
     dispatch_once(&predicate, ^{
         _sharedInstance = [[ImageModel alloc] init];
     } );
+    
     return _sharedInstance;
 }
 
 -(NSArray*) imageNames{
     if(!_imageNames){
         _imageNames = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
-       
     }
     return _imageNames;
 }
 
 -(NSMutableDictionary*) imageNamesToImage{
-    NSArray* imageNameList = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
-    if(! _imageNamesToImage){
-        for(int a =0; a<imageNameList.count; a =a+1){
+    if(!_imageNamesToImage){
+        NSArray* imageNameList = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
+        
+        for(int a=0; a<imageNameList.count; a =a+1){
             NSString* name = (NSString*)imageNameList[a];
             UIImage* image = nil;
             image = [UIImage imageNamed:name];
+            NSLog(@"%@", name);
             _imageNamesToImage[name] = image;
         }
     }
+    
     return _imageNamesToImage;
 }
 
 -(UIImage*)getImageWithName:(NSString*)name{
     UIImage* image = nil;
     
-    image = _imageNamesToImage[name];
+    image = self.imageNamesToImage[name];
     //old code
     //image = [UIImage imageNamed:name];
     
@@ -60,21 +64,21 @@
 -(UIImage*)getImageWithIndex:(NSInteger)index{
     UIImage* image = nil;
     NSString* name =@"";
-    name = (NSString*)_imageNames[index];
-    image = _imageNamesToImage[name];
-    //old code
-    //image = (UIImage*)_imageNames[index];
-
+    name = (NSString*)self.imageNames[index];
+    image = self.imageNamesToImage[name];
+    
     return image;
 }
 
 -(NSInteger)numberOfImages{
-    return _imageNames.count;
+    NSLog(@"%@", self.imageNamesToImage);
+    NSLog(@"%lu", self.imageNamesToImage.count);
+    return self.imageNames.count;
 }
 
 -(NSString*)getImageNameForIndex:(NSInteger)index{
     
-    NSString* name = (NSString*) _imageNames[index];
+    NSString* name = (NSString*) self.imageNames[index];
     
     return name;
     
