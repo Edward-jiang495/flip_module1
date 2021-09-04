@@ -1,31 +1,18 @@
-# flip_module1
+# Flip Module 1
+## Review Questions
+Group: Edward Jiang and Nathan Gage  
 
-Here are all the stuff that we need to do:
+---
 
-[0.5 points] Update the ImageModel class
-to have all properties private, except the shared instance method (Edward currently doing)
+### 1. Is this new implementation of the image model more efficient? Why or Why not?
 
-[0.5 points] Update ImageModel class to pre-load all the UIImages and save them into an NSDictionary
-(or NSMutableDictionary). The key in the dictionary will be the “name” and the value will be the UIImage.
-This should happen the first time another class asks for an image. Note: you should hardcode the names of the images being loaded— do not try to load the names automatically from image.assets. (Edward finishes, pending testing)
+This new image model is more efficient than the old one because dictionary has a faster access speed than arrays. To search for a image with specific name in an array, the operation takes O(n) runtime since it needs to loop through the entire array, but with dictionary, the runtime is constant O(1).
+The get image by index method has approximately the same runtime in both. In the old version all we do it getting the image at index i, which is O(1). For the new version, we access the name first by index, which is O(1), then we use the name to access the image in the dictionary which is also O(1). In this case the dictionary only have a slightly more runtime than array. However, we are able to reduce the operations for accessing images by name by a factor of n.
 
-[1 points] Modify or create class methods that will allow other classes to access the image names and the images by sending in a string or integer parameter ( i.e., the input to the method is the name of the image in the dictionary). Also add a method that returns the total number of images in the model. You should have something like the following for public methods. (Edward finishes, pending testing)
+### 2. Is this implementation of the model more scalable? Why or Why not?
 
+This new implementation of the image model is more scalable compared to the older version of it. In the old version, the runtime O(n) increases as the number of images increases; however, the new version that uses dictionary will have a constant runtime O(1) regardless of the number of images. Therefore, the new image model will not have performance issue once the number of images increase, but the old version will.
 
-[2 points] Make all classes adapt to use the dictionary not array
-Update the ViewController to use the new ImageModel class (if needed).
+### 3. If there were 1000 images in the image.assets file, what would you change in the implementation of the image model?
 
-Update the TableViewController to use the new model (if needed).
-
-Update the CollectionViewController to use the new model (if needed).
-
-Once all classes use the model properly (and everything compiles), test each view controller to be sure they function as expected.
-
-[0.5 points] Add three additional images (six total) to the image.assets and load them using the ImageModel class (along with the other images). Note: Leave the image names hardcoded (Edward finishes, pending testing)
-
-[0.5 points] Review Questions(edward currently doing)
-Is this new implementation of the image model more efficient? Why or Why not?
-
-Is this implementation of the model more scalable? Why or Why not?
-
-If there were 1000 images in the image.assets file, what would you change in the implementation of the image model?
+I will change the model to load images from the assets file automatically instead of hardcoding the names. Hardcoding 1000 image names is time-consuming. 

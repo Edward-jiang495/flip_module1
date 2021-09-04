@@ -32,26 +32,25 @@
 }
 
 -(NSArray*) imageNames{
-    if(!self.imageNames){
-        self.imageNames = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
+    if(!_imageNames){
+        _imageNames = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
     }
-    return self.imageNames;
+    return _imageNames;
 }
 
 -(NSMutableDictionary*) imageNamesToImage{
-    if(!self.imageNamesToImage){
+    if(!_imageNamesToImage){
         NSArray* imageNameList = @[@"Bill",@"Eric",@"Jeff",@"wallpaper1",@"wallpaper2",@"wallpaper3"];
-        self.imageNamesToImage = [NSMutableDictionary dictionary];
+        _imageNamesToImage = [NSMutableDictionary dictionary];
         for(int a=0; a<imageNameList.count; a =a+1){
             NSString* name = (NSString*)imageNameList[a];
             UIImage* image = nil;
             image = [UIImage imageNamed:name];
-            NSLog(@"%@", name);
-            [self.imageNamesToImage setObject:image forKey:name];
+            [_imageNamesToImage setObject:image forKey:name];
         }
     }
     
-    return self.imageNamesToImage;
+    return _imageNamesToImage;
 }
 
 -(UIImage*)getImageWithName:(NSString*)name{
@@ -74,8 +73,6 @@
 }
 
 -(NSInteger)numberOfImages{
-    NSLog(@"%@", self.imageNamesToImage);
-    NSLog(@"%lu", self.imageNamesToImage.count);
     return self.imageNames.count;
 }
 
